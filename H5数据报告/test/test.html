@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+
+	<style type="text/css">
+ 		body{
+ 			margin: 0;
+ 			padding:0;
+ 		}
+ 		.component{
+			display: none;
+ 			width:50%;
+ 			height: 30px;
+ 			margin-bottom: 30px;
+ 			
+ 			background-color: #ccc;
+ 		}
+	</style>
+    <script type="text/javascript" src="../js/lib/jquery-2.2.2.min.js"></script>
+	<script type="text/javascript" src="../js/lib/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="../js/lib/jquery.fullPage.min.js"></script>
+
+	<script>
+		$(function(){
+			$("#h5").fullpage({
+				'sectionsColor':['#ccc','#111','#808080'],
+				onLeave:function(index,nextIndex,direction){
+					$("#h5").find(".page").eq(index-1).trigger("onLeave");
+				},
+				afterLoad:function(anchorLink,index){
+					$("#h5").find(".page").eq(index-1).trigger("onLoad");
+				}
+			});
+
+			$(".page").on("onLeave",function(){
+				console.log($(this).attr("id") , "====>","onLeave");
+				$(this).find(".component").triggerHandler("onLeave");
+			});
+			$(".page").on("onLoad",function(){
+				console.log($(this).attr("id") , "====>","onLoad");
+				$(this).find(".component").trigger("onLoad");
+			});//jquery中用on自定义事件。
+
+			$(".component").on("onLeave",function(){
+				$(this).fadeOut();
+			});
+			$(".component").on("onLoad",function(){
+				$(this).fadeIn();
+				return false; //component触发事件会冒泡到page，page又执行component，造成死循环,解决方案triggerHandler,或者返回false 结束冒泡
+			});
+		});
+	</script>
+</head>
+<body>
+    <div id="h5">
+	  <div class="page section" id="page-1">
+	  	<div class="component log">logo</div>
+	  	<div class="component slogan">slogan</div>
+	  </div>
+	  <div class="page section" id="page-2">
+	  	<div class="component log">logo</div>
+	  	<div class="component slogan">slogan</div>
+	  </div>
+	  <div class="page section" id="page-3">
+	  	<div class="component log">logo</div>
+	  	<div class="component slogan">slogan</div>
+	  </div>
+	</div>
+
+</body>
+</html>

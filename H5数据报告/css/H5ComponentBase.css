@@ -1,0 +1,6 @@
+/*基本组件对象样式*/ /* css中不支持//注释*/
+.h5_component{
+	position:absolute;
+	background-size: 100%;
+	background-repeat: no-repeat;
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="../css/H5ComponentBase.css">
+	<style type="text/css">
+		body{
+			margin:0;
+			padding:0;
+			font-size:12px;
+			background-color:#000;
+		}
+		.iphone{
+			position:absolute;
+			left:50%;
+			top:50%;
+			width:340px;
+			height:540px;
+			margin:-270px 0 0 -170px; /*水平居中对齐*/
+			background-color:#fff; 
+		}
+
+	</style>
+	<script type="text/javascript" src="../js/lib/jquery-2.2.2.min.js"></script>
+	<script type="text/javascript" src="../js/H5ComponentBase.js"></script>
+
+</head>
+<body>
+	<!-- 用于测试H5componentBase对象(基本的图文组件) -->
+    <div class="iphone">
+    	
+    </div>
+
+    <script type="text/javascript">
+    	var cfg = {
+    		type:'base',
+    		bg:'./page1Left.png',
+    		width:346,
+    		height:494,
+    		css:{
+    			left:50,
+    			top:50,
+    			opacity:0
+    		},
+    		animateIn:{top:50,opacity:1},
+    		animateOut:{top:150,opacity:0},
+    		center:true,
+    	}
+    	//对象
+    	var h5 = new H5ComponentBase("myName",cfg);
+    	$('.iphone').append(h5);
+
+    	var leave = true;
+    	$('body').click(function(){
+    		leave = !leave;
+    		$('.h5_component').trigger(leave ? 'onLeave' : 'onLoad')
+    	})
+    </script>
+</body>
+</html>
